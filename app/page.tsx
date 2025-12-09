@@ -1,85 +1,45 @@
 "use client";
+
 import { useState } from "react";
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const [result, setResult] = useState("");
-  const [step, setStep] = useState("input");
+  const [cleaned, setCleaned] = useState<string | null>(null);
 
-  const processUsername = () => {
-    let cleaned = input
-      .toLowerCase()
-      .replace(/@/g, "")
-      .replace(/\s+/g, "")
-      .replace(/dot/gi, ".");
-
-    setResult(cleaned);
-    setStep("result");
+  const cleanUsername = () => {
+    const lower = input.toLowerCase();
+    const noAtOrSpaces = lower.replace(/@|\s+/g, "");
+    const formatted = noAtOrSpaces.replace(/dot/gi, ".");
+    setCleaned(formatted);
   };
 
   return (
-    <main style={{
-      fontFamily: "Arial, sans-serif",
-      maxWidth: 400,
-      margin: "60px auto",
-      padding: 20,
-      textAlign: "center",
-      border: "1px solid #ddd",
-      borderRadius: 12
-    }}>
-      
-      {step === "input" && (
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-6">
+      <h1 className="text-2xl font-bold mb-4">
+        Enter Your Username
+      </h1>
+
+      {!cleaned ? (
         <>
-          <h2>Enter your username</h2>
-          <p>We’ll clean it for you automatically.</p>
           <input
             type="text"
+            className="w-full max-w-md p-3 rounded bg-gray-900 border border-gray-600 text-white mb-3"
+            placeholder="@PizzaCompanyDotCom"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="@UsernameDotCom"
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 10,
-              borderRadius: 8,
-              border: "1px solid #aaa"
-            }}
           />
+
           <button
-            onClick={processUsername}
-            style={{
-              marginTop: 15,
-              width: "100%",
-              padding: "10px 15px",
-              borderRadius: 8,
-              border: "none",
-              fontWeight: 600,
-              cursor: "pointer",
-              background: "#000",
-              color: "#fff"
-            }}
+            onClick={cleanUsername}
+            className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded font-semibold"
           >
             Run
           </button>
         </>
-      )}
-
-      {step === "result" && (
-        <>
-          <h3>🎉 Nice to meet you!</h3>
-          <p>Your cleaned username:</p>
-          <div style={{
-            background: "#f4f4f4",
-            padding: "10px 15px",
-            borderRadius: 6,
-            fontWeight: "bold",
-            overflowWrap: "break-word"
-          }}>
-            {result}
-          </div>
-
-          <p style={{ marginTop: 20 }}>
-            Would you like to follow @DeHyperCoder?
+      ) : (
+        <div className="text-center">
+          <p className="text-lg mb-4">
+            🎉 Nice to meet you, <strong>{cleaned}</strong>!
           </p>
 
           <button
@@ -89,40 +49,23 @@ export default function Home() {
                 "_blank"
               )
             }
-            style={{
-              marginTop: 10,
-              width: "100%",
-              padding: "10px 15px",
-              borderRadius: 8,
-              border: "none",
-              fontWeight: 600,
-              cursor: "pointer",
-              background: "#1d9bf0",
-              color: "#fff"
-            }}
+            className="bg-green-600 hover:bg-green-700 px-5 py-2 rounded font-semibold mb-3 block"
           >
-            Yes, let’s go 🚀
+            Yes, I’ll follow!
           </button>
 
-          <a
-            href="https://x.com/home"
-            target="_blank"
-            style={{ display: "block", marginTop: 10 }}
+          <button
+            onClick={() => setCleaned(null)}
+            className="bg-gray-700 hover:bg-gray-800 px-5 py-2 rounded font-semibold"
           >
             Maybe later
-          </a>
+          </button>
 
-          <p style={{ marginTop: 25, fontSize: 13 }}>
-            ⭐ Don’t forget to star & fork this repo:  
-            <br />
-            <a
-              href="https://github.com/danhypercoder/ConnectAppX-V1"
-              target="_blank"
-            >
-              github.com/dehypercoder/ConnectApp
-            </a>
+          <p className="text-sm mt-6 opacity-70">
+            ⭐ Don’t forget to follow, star & fork this repo:<br />
+            @dehypercoder/ConnectApp
           </p>
-        </>
+        </div>
       )}
     </main>
   );
