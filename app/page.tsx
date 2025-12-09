@@ -63,7 +63,12 @@ export default function Home() {
 
           <p className="text-sm mt-6 opacity-70">
             ⭐ Don’t forget to follow, star & fork this repo:<br />
-            @dehypercoder/ConnectApp
+            <a
+              href="https://github.com/danhypercoder/ConnectAppX-V1"
+              target="_blank"
+            >
+              github.com/dehypercoder/ConnectApp
+            </a>
           </p>
         </div>
       )}
