@@ -116,7 +116,7 @@ export default function Home() {
             ⭐ Don’t forget to star & fork this repo:  
             <br />
             <a
-              href="https://github.com/dehypercoder/ConnectApp"
+              href="https://github.com/danhypercoder/ConnectAppX-V1"
               target="_blank"
             >
               github.com/dehypercoder/ConnectApp
